@@ -3,6 +3,8 @@ import _ from 'lodash';
 import Calendar from 'react-calendar';
 import Header from './components/Header';
 import Task from './components/Task';
+import { datesAreEqual } from './utils';
+import { FaArrowRight, FaArrowCircleRight, FaArrowLeft, FaArrowCircleLeft} from 'react-icons/fa';
 import './App.css';
 import 'react-calendar/dist/Calendar.css';
 
@@ -42,11 +44,6 @@ function App() {
     });
   }
 
-  const datesAreEqual = (first, second) => {
-    if (!first || !second || !(first instanceof Date) || !(second instanceof Date)) return false;
-    return first.getFullYear() === second.getFullYear() && first.getMonth() === second.getMonth() && first.getDate() === second.getDate();
-  }
-
   return (
     <div className="App">
       <Header />
@@ -60,7 +57,7 @@ function App() {
               {user.tasks.map(thisDaysTasks => {
                 if (datesAreEqual(new Date(thisDaysTasks.date), date)) {
                   return thisDaysTasks.tasks.map((task, index) => (
-                    <Task key={`task-${index}`} task={task} user={user} setUser={setUser}/>
+                    <Task key={`task-${index}`} task={task} date={date} user={user} setUser={setUser}/>
                   ));
                 }
                 return '';
@@ -68,7 +65,14 @@ function App() {
             </div>
           </div>
           <div className='calendar-sidebar'>
-            <Calendar onChange={setDate} value={date} />
+            <Calendar
+              onChange={setDate}
+              value={date}
+              nextLabel={<FaArrowRight/>}
+              next2Label={<FaArrowCircleRight/>}
+              prevLabel={<FaArrowLeft/>}
+              prev2Label={<FaArrowCircleLeft/>}
+            />
           </div>
         </div>
       )}
