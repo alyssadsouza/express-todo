@@ -62,7 +62,7 @@ app.post('/api/user/:id', (req, res, next) => {
             }
         })
         if (!dateExists) {
-            updatedUser.tasks.push({date, tasks: [newTask]})
+            updatedUser.tasks.push({date, tasks: [{"task": newTask, "complete": false}]})
         }
         users[req.params.id] = updatedUser
         res.status(200)
