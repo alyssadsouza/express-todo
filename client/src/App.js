@@ -12,6 +12,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [date, setDate] = useState(new Date());
+  const [newTask, setNewTask] = useState('');
 
   useEffect(() => {
     getUser();
@@ -39,9 +40,29 @@ function App() {
       console.debug('Patch user success: ', res);
       return res;
     }).catch(err => {
-      console.warn('Error submitting Patch request for user: ', err);
+      console.warn('Error submitting patch request for user: ', err);
       return err;
     });
+  }
+
+  async function addTask() {
+    if (newTask) {
+      return fetch('/api/user/0', {
+        method: 'POST',
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+          date,
+          "task": newTask
+        }),
+      }).then(res => {
+        console.debug('Post user success: ', res);
+        getUser();
+        return res;
+      }).catch(err => {
+        console.warn('Error submitting post request for user: ', err);
+        return err;
+      });
+    }
   }
 
   return (
@@ -62,6 +83,10 @@ function App() {
                 }
                 return '';
               })}
+            </div>
+            <div className='add-task'>
+              <input type="text" value={newTask} onChange={event => setNewTask(event.target.value)} />
+              <button type="submit" onClick={addTask}>Add</button>
             </div>
           </div>
           <div className='calendar-sidebar'>
