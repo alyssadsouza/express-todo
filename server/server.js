@@ -4,7 +4,8 @@ const app = express()
 app.use(express.json());
 
 const users = [
-    {"user": {
+    {
+        "uuid": 0,
         "tasks": [
             {
                 "task": "Walk the dog",
@@ -19,7 +20,7 @@ const users = [
                 "complete": false
             }
         ]
-    }}
+    }
 ]
 
 
