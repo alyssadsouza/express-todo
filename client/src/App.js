@@ -42,6 +42,11 @@ function App() {
     });
   }
 
+  const datesAreEqual = (first, second) => {
+    if (!first || !second || !(first instanceof Date) || !(second instanceof Date)) return false;
+    return first.getFullYear() === second.getFullYear() && first.getMonth() === second.getMonth() && first.getDate() === second.getDate();
+  }
+
   return (
     <div className="App">
       <Header />
@@ -52,9 +57,14 @@ function App() {
           <div className='tasks'>
             <h1>On Your To-Do List</h1>
             <div className="task-list">
-              {user.tasks.map((task, index) => (
-                <Task key={`task-${index}`} task={task} user={user} setUser={setUser}/>
-              ))}
+              {user.tasks.map(thisDaysTasks => {
+                if (datesAreEqual(new Date(thisDaysTasks.date), date)) {
+                  return thisDaysTasks.tasks.map((task, index) => (
+                    <Task key={`task-${index}`} task={task} user={user} setUser={setUser}/>
+                  ));
+                }
+                return '';
+              })}
             </div>
           </div>
           <div className='calendar-sidebar'>

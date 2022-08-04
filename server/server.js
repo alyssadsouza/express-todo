@@ -8,16 +8,21 @@ const users = [
         "uuid": 0,
         "tasks": [
             {
-                "task": "Walk the dog",
-                "complete": true
-            },
-            {
-                "task": "Fold laundry",
-                "complete": false
-            },
-            {
-                "task": "Wash dishes",
-                "complete": false
+                date: new Date(),
+                tasks: [
+                    {
+                        "task": "Walk the dog",
+                        "complete": true
+                    },
+                    {
+                        "task": "Fold laundry",
+                        "complete": false
+                    },
+                    {
+                        "task": "Wash dishes",
+                        "complete": false
+                    }
+                ]
             }
         ]
     }
