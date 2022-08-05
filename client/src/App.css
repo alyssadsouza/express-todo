@@ -8,6 +8,7 @@
   --primary-link: rgb(174, 225, 229);
   --neutral-light: rgb(250, 250, 250);
   --neutral-mid: rgb(225, 225, 225);
+  --neutral-dark: rgb(200, 200, 200);
 }
 
 .App {
@@ -84,17 +85,14 @@ h1 {
   background: transparent;
 }
 
-.calendar-sidebar .react-calendar__navigation button {
-  color: white;
-}
-
 .calendar-sidebar .react-calendar__tile {
   width: 50px;
   height: 50px;
 }
 
-.calendar-sidebar .react-calendar__tile {
+.calendar-sidebar .react-calendar__tile, .calendar-sidebar .react-calendar__navigation button {
   color: var(--primary-text);
+  font-family: 'Inter', sans-serif;
 }
 
 .calendar-sidebar .react-calendar__tile--active,
@@ -114,6 +112,11 @@ h1 {
 .calendar-sidebar .react-calendar__decade-view .react-calendar__tile,
 .calendar-sidebar .react-calendar__century-view .react-calendar__tile {
   padding: 0;
+}
+
+.calendar-sidebar .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .tasks {
@@ -136,6 +139,34 @@ h1 {
   overflow-y: auto;
   padding: 1%;
   border: 1px solid var(--neutral-mid);
+  border-radius: 10px;
+}
+
+.add-task {
+  width: 70%;
+}
+
+.add-task-form {
+  display: flex;
+  justify-content: center;
+}
+
+.add-task-input {
+  border: 1px solid var(--neutral-mid);
+  width: 80%;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10rem;
+  font-size: medium;
+};
+
+.add-task-input:focus-visible {
+  outline-color: var(--primary);
+};
+
+.add-task-btn {
+  background: var(--primary);
+  color: var(--primary-text);
   border-radius: 10px;
 }
 
@@ -170,4 +201,17 @@ h1 {
   margin: 2%;
   font-size: medium;
   text-align: left;
+}
+
+.task-delete {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 2%;
+  color: var(--neutral-mid);
+  cursor: pointer;
+  transition: 100ms all;
+}
+
+.task-delete:hover {
+  color: var(--neutral-dark);
 }

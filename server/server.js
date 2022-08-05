@@ -65,9 +65,27 @@ app.post('/api/user/:id', (req, res, next) => {
             updatedUser.tasks.push({date, tasks: [{"task": newTask, "complete": false}]})
         }
         users[req.params.id] = updatedUser
-        res.status(200)
+        res.status(200).send('Post request successful!')
     } catch (e) {
         res.status(409).send(`Error: could not complete user update post request --> ${e}`)
+    }
+    next()
+})
+
+app.delete('/api/user/:id', (req, res, next) => {
+    try {
+        const task = req.body.task
+        const date = req.body.date
+        const updatedUser = JSON.parse(JSON.stringify(users[req.params.id]))
+        users[req.params.id].tasks.forEach((day, index) => {
+            if (datesAreEqual(new Date(day.date), new Date(date))) {
+                updatedUser.tasks[index].tasks = day.tasks.filter(oldTask => oldTask.task !== task.task)
+            }
+        });
+        users[req.params.id] = updatedUser
+        res.status(200).send('Delete request successful!')
+    } catch (e) {
+        res.status(409).send(`Error: could not complete user update delete request --> ${e}`)
     }
     next()
 })

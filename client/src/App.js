@@ -45,7 +45,8 @@ function App() {
     });
   }
 
-  async function addTask() {
+  async function addTask(e) {
+    e.preventDefault();
     if (newTask) {
       return fetch('/api/user/0', {
         method: 'POST',
@@ -57,12 +58,28 @@ function App() {
       }).then(res => {
         console.debug('Post user success: ', res);
         getUser();
+        setNewTask('');
         return res;
       }).catch(err => {
         console.warn('Error submitting post request for user: ', err);
         return err;
       });
     }
+  }
+
+  async function deleteTask(task) {
+    return fetch('/api/user/0', {
+      method: 'DELETE',
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify({ date, task }),
+    }).then(res => {
+      console.debug('Delete task success: ', res);
+      getUser();
+      return res;
+    }).catch(err => {
+      console.warn('Error submitting post request for user: ', err);
+      return err;
+    });
   }
 
   return (
@@ -78,15 +95,17 @@ function App() {
               {user.tasks.map(thisDaysTasks => {
                 if (datesAreEqual(new Date(thisDaysTasks.date), date)) {
                   return thisDaysTasks.tasks.map((task, index) => (
-                    <Task key={`task-${index}`} task={task} date={date} user={user} setUser={setUser}/>
+                    <Task key={`task-${index}`} task={task} date={date} user={user} setUser={setUser} deleteTask={deleteTask} />
                   ));
                 }
                 return '';
               })}
             </div>
             <div className='add-task'>
-              <input type="text" value={newTask} onChange={event => setNewTask(event.target.value)} />
-              <button type="submit" onClick={addTask}>Add</button>
+              <form className='add-task-form' onSubmit={addTask}>
+                <input type="text" className="add-task-input" value={newTask} onChange={event => setNewTask(event.target.value)} />
+                <button type="submit" className="add-task-btn">Add</button>
+              </form>
             </div>
           </div>
           <div className='calendar-sidebar'>
