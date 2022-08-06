@@ -50,6 +50,10 @@ h1 {
   font-weight: normal;
 }
 
+h4 {
+  font-weight: normal;
+}
+
 .to-do {
   display: flex;
   flex-direction: row;
@@ -119,6 +123,17 @@ h1 {
   font-weight: bold;
 }
 
+.empty-tasks {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.empty-tasks h4 {
+  width: 100%;
+}
+
 .tasks {
   display: flex;
   flex-direction: column;
@@ -164,7 +179,7 @@ h1 {
   outline-color: var(--primary);
 };
 
-.add-task-btn {
+#add-task-btn {
   background: var(--primary);
   color: var(--primary-text);
   border-radius: 10px;
