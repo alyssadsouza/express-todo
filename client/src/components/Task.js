@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const Task = ({task, deleteTask, toggleTask}) => {
 
   return (

@@ -22,8 +22,11 @@ function App() {
 
   useEffect(() => {
     getUser();
-    getTasks();
   }, []);
+
+  useEffect(() => {
+    getTasks();
+  }, [date]);
 
   async function getUser() {
     try {
@@ -33,7 +36,7 @@ function App() {
     } catch (err) {
       console.debug("Error fetching user:", err);
     }
-  };
+  }
 
   async function getTasks() {
     try {
@@ -56,47 +59,51 @@ function App() {
     e.preventDefault();
     if (newTask) {
       return fetch(`/api/tasks/${user.id}`, {
-        method: 'POST',
-        headers: {"Content-type": "application/json"},
+        method: "POST",
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           date,
-          "task": newTask
+          task: newTask,
         }),
-      }).then(res => {
-        console.debug('Post user success: ', res);
-        getTasks();
-        setNewTask('');
-        return res;
-      }).catch(err => {
-        console.warn('Error submitting post request for user: ', err);
-        return err;
-      });
+      })
+        .then((res) => {
+          console.debug("Post user success: ", res);
+          getTasks();
+          setNewTask("");
+          return res;
+        })
+        .catch((err) => {
+          console.warn("Error submitting post request for user: ", err);
+          return err;
+        });
     }
   }
 
   async function toggleTask(task) {
     return fetch(`/api/tasks/${task.id}`, {
-      method: 'PATCH',
-      headers: {"Content-type": "application/json"},
+      method: "PATCH",
+      headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         task,
-        status: !task.complete
+        status: !task.complete,
       }),
-    }).then(res => {
-      console.debug('Patch user success: ', res);
-      getTasks();
-      return res;
-    }).catch(err => {
-      console.warn('Error submitting patch request for user: ', err);
-      return err;
-    });
+    })
+      .then((res) => {
+        console.debug("Patch user success: ", res);
+        getTasks();
+        return res;
+      })
+      .catch((err) => {
+        console.warn("Error submitting patch request for user: ", err);
+        return err;
+      });
   }
 
   async function deleteTask(task) {
     return fetch(`/api/tasks/${task.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({task}),
+      body: JSON.stringify({ task }),
     })
       .then((res) => {
         console.debug("Delete task success: ", res);
