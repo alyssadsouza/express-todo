@@ -164,6 +164,7 @@ h4 {
 .add-task-form {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .add-task-input {
@@ -173,16 +174,25 @@ h4 {
   margin: 1rem;
   border-radius: 10rem;
   font-size: medium;
-};
+}
 
 .add-task-input:focus-visible {
   outline-color: var(--primary);
-};
+}
 
-#add-task-btn {
+.add-task-btn {
   background: var(--primary);
   color: var(--primary-text);
-  border-radius: 10px;
+  border-radius: 20px;
+  height: fit-content;
+  border-style: none;
+  padding: 1rem;
+  cursor: pointer;
+  transition: 100ms all;
+}
+
+.add-task-btn:hover {
+  background-color: var(--primary-mid);
 }
 
 .task {
